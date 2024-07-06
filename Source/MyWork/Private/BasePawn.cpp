@@ -26,7 +26,6 @@ ABasePawn::ABasePawn()
     SphereComponent->SetEnableGravity(true);
     SphereComponent->SetSimulatePhysics(true);
 
-    
     InitCameraComponent();
     if(TheText!=NULL)
     {
@@ -408,10 +407,13 @@ void ABasePawn::HandBrake(float AxisValue)
 void ABasePawn::IsItOutOfBounds()
 {
     FVector NowLocation = GetActorLocation();
-    if(NowLocation.X != FMath::Clamp(NowLocation.X, -20000.f, 20000.f)
-        || NowLocation.Y != FMath::Clamp(NowLocation.Y, -20000.f, 20000.f)
-        || NowLocation.Z != FMath::Clamp(NowLocation.Z, 0.f, 4000.f))
+    if(NowLocation.X != FMath::Clamp(NowLocation.X, -30000.f, 30000.f)
+        || NowLocation.Y != FMath::Clamp(NowLocation.Y, -30000.f, 30000.f)
+        || NowLocation.Z != FMath::Clamp(NowLocation.Z, 0.f, 6000.f))
     {
-        this->SetActorLocation(FVector(FMath::RandRange(-20000, 20000), FMath::RandRange(-20000, 20000), FMath::RandRange(200, 4000)));
+        if(Type==TargetType::PLANE)
+            this->SetActorLocation(FVector(FMath::RandRange(-20000, 20000), FMath::RandRange(-20000, 20000), FMath::RandRange(2500, 4000)));
+        else
+            this->SetActorLocation(FVector(FMath::RandRange(-20000, 20000), FMath::RandRange(-20000, 20000), FMath::RandRange(0, 200)));
     }
 }

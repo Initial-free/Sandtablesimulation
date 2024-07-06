@@ -19,7 +19,7 @@ AWeapon::AWeapon()
 
         CollisionComponent->OnComponentHit.AddDynamic(this, &AWeapon::OnHit);
         
-        CollisionComponent->InitSphereRadius(15.0f);
+        CollisionComponent->InitSphereRadius(30.0f);
         // 将根组件设置为碰撞组件。
         RootComponent = CollisionComponent;
     }
@@ -45,9 +45,8 @@ AWeapon::AWeapon()
         ProjectileMeshComponent->SetStaticMesh(Mesh.Object);
         ProjectileMeshComponent->SetRelativeRotation(FRotator(0.0f,90.0f,0.0f));
         ProjectileMeshComponent->SetRelativeLocation(FVector(100.0f,0.0f,0.0f));
-        ProjectileMeshComponent->SetWorldScale3D(FVector(0.5f));
+        ProjectileMeshComponent->SetWorldScale3D(FVector(0.8f));
     }
-    //ProjectileMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     InitialLifeSpan = 6.0f;
 }
 
