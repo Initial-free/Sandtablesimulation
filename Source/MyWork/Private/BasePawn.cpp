@@ -12,7 +12,6 @@
 ABasePawn::ABasePawn()
 {
     
-    //
     ProjectileClass = AWeapon::StaticClass();
     InitBaseValue();
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -26,16 +25,8 @@ ABasePawn::ABasePawn()
     SphereComponent->SetCollisionProfileName(TEXT("Pawn"));
     SphereComponent->SetEnableGravity(true);
     SphereComponent->SetSimulatePhysics(true);
-    // 创建可激活或停止的粒子系统
-    OurParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("MovementParticles"));
-    OurParticleSystem->SetupAttachment(SphereComponent);
-    OurParticleSystem->bAutoActivate = false;
-    OurParticleSystem->SetRelativeLocation(FVector(-20.0f, 0.0f, 20.0f));
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleAsset(TEXT("/Game/StarterContent/Particles/P_Fire.P_Fire"));
-    if (ParticleAsset.Succeeded())
-    {
-        OurParticleSystem->SetTemplate(ParticleAsset.Object);
-    }
+
+    
     InitCameraComponent();
     if(TheText!=NULL)
     {
@@ -117,14 +108,14 @@ void ABasePawn::Tick(float DeltaTime)
     {
         TheText->ThreatText->SetRelativeLocation(GetActorLocation() + FVector(0.0f, 0.0f, 200.0f));
     }
+    IsItOutOfBounds();
 }
-
+//进行按键绑定
 // Called to bind functionality to input
 void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
     PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABasePawn::GunFire);
-    PlayerInputComponent->BindAction("ParticleToggle", IE_Pressed, this, &ABasePawn::ParticleToggle);
     PlayerInputComponent->BindAction("StopCameraFollow", IE_Pressed, this, &ABasePawn::CameraFollow);
     PlayerInputComponent->BindAction("ChangeCamera", IE_Pressed, this, &ABasePawn::VehicleChangeCamera);
     PlayerInputComponent->BindAction("Initial", IE_Pressed, this, &ABasePawn::InitialPosition);
@@ -134,13 +125,12 @@ void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
     PlayerInputComponent->BindAxis("LookUp", this, &ABasePawn::CameraLookUp);
     PlayerInputComponent->BindAxis("Break", this, &ABasePawn::HandBrake);
 }
-
+//获取前进模组
 UPawnMovementComponent* ABasePawn::GetMovementComponent() const
 {
     return OurMovementComponent;
 }
-
-
+//改变驾车视角
 void ABasePawn::VehicleChangeCamera()
 {
     switch (CameraType)
@@ -156,7 +146,7 @@ void ABasePawn::VehicleChangeCamera()
     }
     CameraType = !CameraType;
 }
-
+//摄像臂的伸缩
 void ABasePawn::CameraSpringArmZoomIn()
 {
     if (SpringArm->TargetArmLength > 300.0f)
@@ -173,7 +163,7 @@ void ABasePawn::CameraSpringArmZoomOut()
         SpringArm->TargetArmLength = SpringArm->TargetArmLength + 20.0f;
     }
 }
-
+//摄像头单独旋转
 void ABasePawn::CameraTurnAround(float AxisValue)
 {
     if(!CameraFllow)
@@ -187,7 +177,7 @@ void ABasePawn::CameraTurnAround(float AxisValue)
         SpringArm->AddRelativeRotation(CameraRotator);
     }
 }
-
+//转弯
 void ABasePawn::Turn(float AxisValue)
 {
     FRotator NewRotation = GetActorRotation();
@@ -205,7 +195,7 @@ void ABasePawn::Turn(float AxisValue)
         }
     }
 }
-
+//摄像头抬起
 void ABasePawn::CameraLookUp(float AxisValue)
 {
     
@@ -228,7 +218,7 @@ void ABasePawn::CameraLookUp(float AxisValue)
         }
     }
 }
-
+//摄像头跟踪
 void ABasePawn::CameraFollow()
 {
     CameraFllow = !CameraFllow;
@@ -243,7 +233,7 @@ void ABasePawn::CameraFollow()
         InternalCamera->SetWorldRotation(NewRotation);
     }
 }
-
+//向前移动
 void ABasePawn::MoveForward(float AxisValue)
 {
     if (OurMovementComponent && (OurMovementComponent->UpdatedComponent == RootComponent))
@@ -269,6 +259,7 @@ void ABasePawn::MoveForward(float AxisValue)
         OurMovementComponent->AddInputVector(GetActorForwardVector()* CurrentSpeed);
     }
 }
+//随机转弯
 void ABasePawn::RandomTurn()
 {
     static bool isTure = false;
@@ -319,6 +310,7 @@ void ABasePawn::RandomTurn()
         }
     }
 }
+//随机向前移动
 void ABasePawn::RandomMoveForward()
 {
     if (OurMovementComponent && (OurMovementComponent->UpdatedComponent == RootComponent))
@@ -333,48 +325,11 @@ void ABasePawn::RandomMoveForward()
         OurMovementComponent->AddInputVector(GetActorForwardVector() * CurrentSpeed);
     }
 }
+//加速时间
 float ABasePawn::GetDecelerationTime(float currentSpeed) const
 {
     float timeConstant = 1.0f / (CurrentSpeed + 1.0f); // 时间常数，速度越高，时间越长
     return timeConstant;
-}
-void ABasePawn::MakeFire(ABasePawn& TheFirst, ABasePawn& TheSecond)
-{
-    // 试图发射发射物
-    if (ProjectileClass)
-    {
-        // 获取摄像机变换。
-        FVector CameraLocation;
-        FRotator CameraRotation;
-        GetActorEyesViewPoint(CameraLocation, CameraRotation);
-
-        // 设置MuzzleOffset，在略靠近摄像机前生成发射物。
-        MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
-
-        // 将MuzzleOffset从摄像机空间变换到世界空间。
-        FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
-
-        // 使目标方向略向上倾斜。
-        FRotator MuzzleRotation = CameraRotation;
-        MuzzleRotation.Pitch += 10.0f;
-
-        UWorld* World = GetWorld();
-        if (World)
-        {
-            FActorSpawnParameters SpawnParams;
-            SpawnParams.Owner = this;
-            SpawnParams.Instigator = GetInstigator();
-
-            // 在枪口位置生成发射物。
-            AWeapon* Projectile = World->SpawnActor<AWeapon>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
-            if (Projectile)
-            {
-                // 设置发射物的初始轨迹。
-                FVector LaunchDirection = MuzzleRotation.Vector();
-                Projectile->FireInDirection(LaunchDirection);
-            }
-        }
-    }
 }
 void ABasePawn::GunFire()
 {
@@ -394,7 +349,7 @@ void ABasePawn::GunFire()
 
         // 使目标方向略向上倾斜。
         FRotator MuzzleRotation = CameraRotation;
-        MuzzleRotation.Pitch += 10.0f;
+        MuzzleRotation.Pitch += EnemyPitch;
 
         UWorld* World = GetWorld();
         if (World)
@@ -414,29 +369,24 @@ void ABasePawn::GunFire()
         }
     }
 }
+//设置高度仰角
 void ABasePawn::SetEnemyPitch(float Temp)
 {
     EnemyPitch = Temp;
 }
-void ABasePawn::ParticleToggle()
-{
-    if (OurParticleSystem && OurParticleSystem->Template)
-    {
-        OurParticleSystem->ToggleActive();
-    }
-}
-
+//更新状态
 void ABasePawn::InitialPosition()
 {
     SetActorRotation(InitialRotation);
 }
-
+//自我销毁
 void ABasePawn::ToDeath()
 {
     this->TheText->Destroy();
     this->Destroy();
 }
 
+//刹车系统
 void ABasePawn::HandBrake(float AxisValue)
 {
     if (OurMovementComponent && (OurMovementComponent->UpdatedComponent == RootComponent))
@@ -454,8 +404,14 @@ void ABasePawn::HandBrake(float AxisValue)
         OurMovementComponent->AddInputVector(GetActorForwardVector() * CurrentSpeed);
     }
 }
-
+//检测出界
 void ABasePawn::IsItOutOfBounds()
 {
-
+    FVector NowLocation = GetActorLocation();
+    if(NowLocation.X != FMath::Clamp(NowLocation.X, -5000.f, 5000.f)
+        || NowLocation.Y != FMath::Clamp(NowLocation.Y, -5000.f, 5000.f)
+        || NowLocation.Z != FMath::Clamp(NowLocation.Z, 200.f, 4000.f))
+    {
+        this->SetActorLocation(FVector(FMath::RandRange(-5000, 5000), FMath::RandRange(-5000, 5000), FMath::RandRange(200, 4000)));
+    }
 }

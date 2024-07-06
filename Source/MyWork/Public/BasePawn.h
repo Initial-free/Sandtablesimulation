@@ -44,8 +44,6 @@ public:
 
     UPROPERTY(VisibleAnywhere, Category = "BaseMesh", meta = (AllowPrivateAccess = "true"))
     USkeletalMeshComponent* VehicleMesh;
-    UPROPERTY()
-    class UParticleSystemComponent* OurParticleSystem;
 
     //移动组件
     UPROPERTY()
@@ -65,8 +63,6 @@ public:
     UFUNCTION()
     void IsItOutOfBounds();
 
-    UFUNCTION()
-    void ParticleToggle();
     UFUNCTION()
     void InitialPosition();
    UFUNCTION()
@@ -137,7 +133,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Car")
     float AccelerationRate = 2.0f; // 每秒增加的速度
 public:
-    void MakeFire(ABasePawn& TheFirst, ABasePawn& TheSecond);
     void GunFire();
     // 枪口相对于摄像机位置的偏移
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)

@@ -48,7 +48,7 @@ AWeapon::AWeapon()
         ProjectileMeshComponent->SetWorldScale3D(FVector(0.5f));
     }
     //ProjectileMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    InitialLifeSpan = 5.0f;
+    InitialLifeSpan = 6.0f;
 }
 
 // Called when the game starts or when spawned
@@ -85,9 +85,7 @@ void AWeapon::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
         if (MyActor)
         {
             MyActor->IsDeath = true;
-            /*OtherActor->Destroy();*/
         }
-        
     }
     Destroy();
 }

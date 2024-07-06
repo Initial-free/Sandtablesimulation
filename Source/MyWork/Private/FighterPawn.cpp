@@ -98,7 +98,7 @@ void AFighterPawn::SecondFighter()
     {
         Fuselage->SetStaticMesh(FuselageVisual.Object);
         Fuselage->SetRelativeLocation(FVector(0.0f, 0.0f, -20.0f));
-        Fuselage->SetWorldScale3D(FVector(50.0f));
+        Fuselage->SetWorldScale3D(FVector(50.f));
     }
     //Áã¼þ
     Parts = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PartsVisual"));
@@ -108,7 +108,7 @@ void AFighterPawn::SecondFighter()
     {
         Parts->SetStaticMesh(PartsVisual.Object);
         Parts->SetRelativeLocation(FVector(0.0f, 0.0f, -20.0f));
-        Parts->SetWorldScale3D(FVector(50.0f));
+        Parts->SetWorldScale3D(FVector(50.f));
     }
 }
 

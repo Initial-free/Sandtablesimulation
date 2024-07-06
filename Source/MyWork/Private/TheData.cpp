@@ -18,12 +18,11 @@ TheData::~TheData()
 }
 void TheData::UpdateValue()
 {
-	ThreatLevel = (800/FMath::Abs(Distance))* 22 +
-		FMath::Abs(Direction.Length()) +
+	ThreatLevel = (800/FMath::Abs(Distance))* 45 +
 		FMath::Abs(Angle) / 45 * 8 +
-		FMath::Abs(GetTargetPriority(Type)) / 3.0 * 20 +
-		FMath::Abs(GetStatusPriority(Status)) / 3.0 * 20 +
-		FMath::Abs(EmInterference1) / 400 * 9 +
-		FMath::Abs(EmInterference2) / 700 * 10 +
-		FMath::Abs(Radius) / 600 * 14;
+		FMath::Abs(GetTargetPriority(Type)) / 3.0 * 15 +
+		FMath::Abs(GetStatusPriority(Status)) / 3.0 * 15 +
+		FMath::Abs(EmInterference1) / 400 * 8 +
+		FMath::Abs(EmInterference2) / 700 * 8 +
+		FMath::Abs(Radius) / 600 * 8;
 }

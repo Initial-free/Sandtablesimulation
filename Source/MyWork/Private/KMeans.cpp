@@ -4,6 +4,7 @@ KMeans::~KMeans()
 {
 
 }
+//Kmeans运行
 void KMeans::Run()
 {
 	TArray<int> Label;
@@ -31,6 +32,7 @@ void KMeans::Run()
 		MaxIterations--;
 		if (MaxIterations < 0)
 			break;
+		//计算距离质心
 		for (int32 i = 0; i < Points.Num(); i++) {
 			//获取最大数
 			double MinDistance = std::numeric_limits<double>::max();
@@ -144,8 +146,9 @@ void KMeans::SetBasicdata(TArray<ABasePawn*>& Aggregate, ABasePawn*& Mine)
 PRAGMA_DISABLE_OPTIMIZATION
 double KMeans::CalculateDistance(TheData*& FirstPoints, TheData*& SecondPoints)
 {
+	//计算距离
 	double Temp;
-	Temp = (800 / (FMath::Abs(FirstPoints->Distance-SecondPoints->Distance)+1)) * 22 +
+	Temp = (8000 / (FMath::Abs(FirstPoints->Distance-SecondPoints->Distance)+1)) * 40 +
 		FMath::Abs(FirstPoints->Angle - SecondPoints->Angle) / 45 * 8 +
 		FMath::Abs(FirstPoints->TypePriority - SecondPoints->TypePriority) / 3.0 * 20 +
 		FMath::Abs(FirstPoints->StatusPriority - SecondPoints->StatusPriority) / 3.0 * 20 +

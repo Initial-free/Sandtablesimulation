@@ -35,6 +35,7 @@ public:
 	void SetTimer();
 	void TheCalculation();
 	void ShowText();
+	void ShowPartcile(ABasePawn* &ThePawn);
 	//Íæ¼Ò
 	ABasePawn* MyPawn;
 	TArray<int> La;
