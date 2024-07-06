@@ -13,11 +13,21 @@ void AArmoredCarPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
     //防止车倒过来
+=======
+
+void AArmoredCarPawn::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+>>>>>>> 7bd675b5fb0fb7a1f48945cacf2df6bf1c7b0943
 	int32 Select = FMath::Clamp(RootComponent->GetComponentRotation().Roll, -90.0f, 90.0f);
 	if (Select == -90.0f || Select == 90.0f)
 		InitialPosition();
 }
+<<<<<<< HEAD
 //创建轮子
+=======
+
+>>>>>>> 7bd675b5fb0fb7a1f48945cacf2df6bf1c7b0943
 void AArmoredCarPawn::CreateWheel(UStaticMeshComponent* StaticMesh, const FName& Name, const FVector Location, UStaticMesh* Mesh)
 {
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(Name);
@@ -26,6 +36,7 @@ void AArmoredCarPawn::CreateWheel(UStaticMeshComponent* StaticMesh, const FName&
 	StaticMesh->SetRelativeLocation(Location);
 	StaticMesh->SetWorldScale3D(FVector(0.8f));
 }
+<<<<<<< HEAD
 //初始化不同种类的装甲车
 void AArmoredCarPawn::InitBasicMesh()
 {
@@ -36,6 +47,15 @@ void AArmoredCarPawn::InitBasicMesh()
 }
 
 //第一种类型
+=======
+
+void AArmoredCarPawn::InitBasicMesh()
+{
+	FirstArmoredCar();
+}
+
+
+>>>>>>> 7bd675b5fb0fb7a1f48945cacf2df6bf1c7b0943
 void AArmoredCarPawn::FirstArmoredCar()
 {
 
@@ -70,12 +90,18 @@ void AArmoredCarPawn::FirstArmoredCar()
     }
 }
 
+<<<<<<< HEAD
 //初始化数值
 void AArmoredCarPawn::InitBaseValue()
 {
     //初始化车辆类型
     Type = TargetType::ARMORED_CAR;
     //初始化状态
+=======
+void AArmoredCarPawn::InitBaseValue()
+{
+    Type = TargetType::ARMORED_CAR;
+>>>>>>> 7bd675b5fb0fb7a1f48945cacf2df6bf1c7b0943
     int32 SelStatus = FMath::RandRange(1, 3);
     if (SelStatus == 1)
         Status = CombatStatus::STATUS_1;
