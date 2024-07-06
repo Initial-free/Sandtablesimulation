@@ -15,3 +15,15 @@ TheData::TheData()
 TheData::~TheData()
 {
 }
+//º∆À„Õ˛–≤∂»
+void TheData::UpdateValue()
+{
+	ThreatLevel = (8000 / (FMath::Abs(Distance) + 1)) * 40 +
+		FMath::Abs(Angle) / 45 * 8 +
+		FMath::Abs(GetTargetPriority(Type)) / 3.0 * 20 +
+		FMath::Abs(GetStatusPriority(Status)) / 3.0 * 20 +
+		FMath::Abs(EmInterference1) / 400 * 9 +
+		FMath::Abs(EmInterference2) / 700 * 10 +
+		FMath::Abs(Radius) / 600 * 14;
+}
+

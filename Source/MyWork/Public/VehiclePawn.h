@@ -27,6 +27,7 @@ public:
 	UFUNCTION()
 	void SecondTank();
 public:
+	//×é¼þ
 	UPROPERTY(VisibleAnywhere, Category = "Tank", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* Battery;
 	UPROPERTY(VisibleAnywhere, Category = "Tank", meta = (AllowPrivateAccess = "true"))

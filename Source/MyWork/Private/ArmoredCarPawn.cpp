@@ -34,11 +34,6 @@ void AArmoredCarPawn::InitBasicMesh()
     //......
 }
 
-//第一种类型
-void AArmoredCarPawn::InitBasicMesh()
-{
-	FirstArmoredCar();
-}
 void AArmoredCarPawn::FirstArmoredCar()
 {
 
@@ -79,14 +74,10 @@ void AArmoredCarPawn::InitBaseValue()
     //初始化车辆类型
     Type = TargetType::ARMORED_CAR;
     //初始化状态
-}
-void AArmoredCarPawn::InitBaseValue()
-{
-    Type = TargetType::ARMORED_CAR;
     int32 SelStatus = FMath::RandRange(1, 3);
     if (SelStatus == 1)
         Status = CombatStatus::STATUS_1;
-    else if(SelStatus == 2)
+    else if (SelStatus == 2)
         Status = CombatStatus::STATUS_2;
     else
         Status = CombatStatus::STATUS_3;

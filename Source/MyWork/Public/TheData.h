@@ -26,6 +26,7 @@ public:
 	float ThreatLevel;
 public:
 	void UpdateValue();
+	//ÔËËã·ûÖØÔØ
 	TheData operator+=(const TheData& a)
 	{
 

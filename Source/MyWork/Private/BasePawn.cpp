@@ -408,10 +408,10 @@ void ABasePawn::HandBrake(float AxisValue)
 void ABasePawn::IsItOutOfBounds()
 {
     FVector NowLocation = GetActorLocation();
-    if(NowLocation.X != FMath::Clamp(NowLocation.X, -5000.f, 5000.f)
-        || NowLocation.Y != FMath::Clamp(NowLocation.Y, -5000.f, 5000.f)
-        || NowLocation.Z != FMath::Clamp(NowLocation.Z, 200.f, 4000.f))
+    if(NowLocation.X != FMath::Clamp(NowLocation.X, -20000.f, 20000.f)
+        || NowLocation.Y != FMath::Clamp(NowLocation.Y, -20000.f, 20000.f)
+        || NowLocation.Z != FMath::Clamp(NowLocation.Z, 0.f, 4000.f))
     {
-        this->SetActorLocation(FVector(FMath::RandRange(-5000, 5000), FMath::RandRange(-5000, 5000), FMath::RandRange(200, 4000)));
+        this->SetActorLocation(FVector(FMath::RandRange(-20000, 20000), FMath::RandRange(-20000, 20000), FMath::RandRange(200, 4000)));
     }
 }

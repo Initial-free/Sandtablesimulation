@@ -30,7 +30,7 @@ void ATheText::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-
+//更新Text
 void ATheText::UpdateTimerDisplay()
 {
 	ThreatText->SetText(FText::FromString(FString::Printf(TEXT("%d %f"), ThreatLevel, AddFString)));
@@ -54,6 +54,7 @@ void ATheText::AdvanceTimer()
 	}
 }
 
+//设置死亡事件
 void ATheText::CountdownHasFinished()
 {
 	ThreatText->SetText(FText::FromString(FString(TEXT("Death"))));

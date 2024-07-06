@@ -274,5 +274,3 @@ void AMyWorkGameModeBase::ShowPartcile(ABasePawn*& ThePawn)
 {
     AParticle* MyParticle = GetWorld()->SpawnActor<AParticle>(AParticle::StaticClass(), ThePawn->GetActorLocation(), ThePawn->GetActorRotation());
 }
-
-

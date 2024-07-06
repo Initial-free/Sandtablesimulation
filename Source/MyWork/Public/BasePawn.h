@@ -165,6 +165,7 @@ public:
 
     bool IsDeath;
 
+    //ÉèÖÃÑö½Ç
     float EnemyPitch;
     void SetEnemyPitch(float Temp);
 };

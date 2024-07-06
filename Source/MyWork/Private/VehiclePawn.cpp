@@ -211,7 +211,7 @@ void AVehiclePawn::FireTurn(float AxisValue)
    
     
 }
-
+//炮台的旋转
 void AVehiclePawn::BatteryTurn(float AxisValue)
 {
     float BatteryYaw = AxisValue;
@@ -222,7 +222,7 @@ void AVehiclePawn::BatteryTurn(float AxisValue)
     TheFire->AddRelativeRotation(BatteryRotator);
     InternalCamera->AddRelativeRotation(BatteryRotator);
 }
-
+//设置响应
 void AVehiclePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);

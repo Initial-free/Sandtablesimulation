@@ -30,10 +30,11 @@ public:
 	int ThreatLevel;
 	UTextRenderComponent* ThreatText;
 
-
+	//¸üÐÂtext
 	void UpdateTimerDisplay();
 	void AddText(float AddFString);
 	void AdvanceTimer();
+
 
 	void CountdownHasFinished();
 	void SetThretLvel(int32 TheThreatLevel);
