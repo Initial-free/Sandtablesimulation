@@ -5,7 +5,6 @@
 #include "TimerManager.h"
 #include "KMeans.h"
 #include "TemplateClass.h"
-#include <Actions/PawnAction.h>
 #include "TheController.h"
 #include "Particle.h"
 AMyWorkGameModeBase::AMyWorkGameModeBase()
