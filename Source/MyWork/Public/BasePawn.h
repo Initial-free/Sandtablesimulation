@@ -8,6 +8,7 @@
 #include "Weapon.h"
 #include "EnumClass.h"
 #include "TheText.h"
+#include "iostream"
 #include "BasePawn.generated.h"
 UCLASS()
 class MYWORK_API ABasePawn : public APawn
@@ -168,4 +169,7 @@ public:
     //…Ë÷√—ˆΩ«
     float EnemyPitch;
     void SetEnemyPitch(float Temp);
+
+public:
+    friend class TemplateClass;
 };

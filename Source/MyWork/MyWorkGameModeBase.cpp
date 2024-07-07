@@ -157,6 +157,7 @@ void AMyWorkGameModeBase::AttackControl()
 
 void AMyWorkGameModeBase::TheControl()
 {
+    //TemplateClass temp;
     for (ABasePawn* ThePawn : EnemyG)
     {
         if (ThePawn)
@@ -178,6 +179,9 @@ void AMyWorkGameModeBase::TheControl()
                 {
                     EnemyG.RemoveAt(Index);
                 }
+                //模板类减少代码冗余
+                //下列代码均可替换
+                //temp.SetArrayVariable(ThePawn);
                 break;
             }
             else if (ThePawn->IsA<AFighterPawn>() && ThePawn->IsDeath)
