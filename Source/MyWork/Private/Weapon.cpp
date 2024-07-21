@@ -71,10 +71,10 @@ void AWeapon::FireInDirection(const FVector& ShootDirection)
 
 void AWeapon::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-    if (OtherActor != this && OtherComponent->IsSimulatingPhysics())
+    /*if (OtherActor != this && OtherComponent->IsSimulatingPhysics())
     {
         OtherComponent->AddImpulseAtLocation(ProjectileMovementComponent->Velocity * 100.0f, Hit.ImpactPoint);
-    }
+    }*/
     // 销毁被碰到的物体
     if (OtherActor && OtherActor != this)
     {
